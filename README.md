@@ -5,8 +5,7 @@ A **Django web application** to manage candidate profiles with a modern glassy U
 ## Features
 
 - Add and store candidate details (Name, DOB, Gender, Contact, Address, Job Preferences).  
-- Upload profile images and documents.  
-- View candidate profiles in a **glass-blurred, modern UI**.  
+- Upload profile images and documents.    
 - Responsive layout with right-side summary panel.  
 
 ## Technologies Used
@@ -19,8 +18,8 @@ A **Django web application** to manage candidate profiles with a modern glassy U
 ## Screenshots
 
 - **Home / Candidate Form** – Glassy blurred layout with form.
-- **Candidate Profile** – Profile card with image, table details, and summary panel.  
+ <img src="home.png">
+- **Candidate Profile** – Profile card with image, table details, and summary panel.
+ <img src="profile.png">  
 
-## License
 
-This project is licensed under the MIT License.
