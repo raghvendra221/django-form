@@ -1,0 +1,287 @@
+{% extends "student/base.html" %}
+
+{% block left-content %}
+<style>
+/* ---------- Page Background ---------- */
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #e0e0e0, #f9f9f9);
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Blurry background layer */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+    filter: blur(12px);
+    z-index: -1;
+}
+
+/* ---------- Main Layout ---------- */
+.container {
+    margin-top: 50px;
+}
+
+/* ---------- Form Container ---------- */
+form {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ---------- Form Elements ---------- */
+form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #333;
+}
+
+form input,
+form select,
+form textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    margin-bottom: 15px;
+    transition: border 0.3s ease;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+    outline: none;
+    border: 1px solid #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+/* ---------- Submit Button ---------- */
+button[type="submit"] {
+    width: 100%;
+    background: #4a90e2;
+    color: white;
+    font-weight: 600;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.1s ease;
+}
+
+button[type="submit"]:hover {
+    background: #357abd;
+}
+
+button[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+/* ---------- Image Preview ---------- */
+#imagepreview {
+    display: none;
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+/* ---------- Right-side Candidate List ---------- */
+.right-content {
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(6px);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.right-content a {
+    text-decoration: none;
+    color: #4a90e2;
+    font-weight: 500;
+}
+
+.right-content a:hover {
+    text-decoration: underline;
+}
+
+.right-content p {
+    background: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+.gender-field {
+    display: flex;
+    gap: 15px;            /* horizontal spacing between options */
+    flex-wrap: wrap;       /* allow wrapping on smaller screens */
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 6px;             /* space between radio and label */
+}
+
+.radio-option input[type="radio"] {
+    margin: 0;            /* remove default margin */
+    transform: translateY(1px); /* tiny vertical adjustment for alignment */
+}
+
+.radio-option span {
+    font-size: 14px;
+    color: #333;
+}
+
+
+
+
+
+
+</style>
+
+<!-- ---------- Django Form Section ---------- -->
+<form action="" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+
+{% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+        <p class="alert alert-danger my-3">{{ error }}</p>
+    {% endfor %}
+{% endif %}
+
+<!-- Name -->
+<div class="mb-3">
+    <label for="{{ form.name.id_for_label }}" class="form-label">{{ form.name.label }}</label>
+    {{ form.name }}
+</div>
+
+<!-- DOB -->
+<div class="mb-3">
+    <label for="{{ form.dob.id_for_label }}" class="form-label">{{ form.dob.label }}</label>
+    {{ form.dob }}
+</div>
+
+<!-- Gender -->
+<!-- Gender -->
+<div class="mb-3">
+    <label class="form-label">Gender</label>
+    <div class="gender-field">
+        {% for radio in form.gender %}
+            <div class="radio-option">
+                {{ radio.tag }}
+                <span>{{ radio.choice_label }}</span>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+
+
+<!-- Locality -->
+<div class="mb-3">
+    <label for="{{ form.locality.id_for_label }}" class="form-label">{{ form.locality.label }}</label>
+    {{ form.locality }}
+</div>
+
+<!-- City -->
+<div class="mb-3">
+    <label for="{{ form.city.id_for_label }}" class="form-label">{{ form.city.label }}</label>
+    {{ form.city }}
+</div>
+
+<!-- Pin -->
+<div class="mb-3">
+    <label for="{{ form.pin.id_for_label }}" class="form-label">{{ form.pin.label }}</label>
+    {{ form.pin }}
+</div>
+
+<!-- State -->
+<div class="mb-3">
+    <label for="{{ form.state.id_for_label }}" class="form-label">{{ form.state.label }}</label>
+    {{ form.state }}
+</div>
+
+<!-- Mobile -->
+<div class="mb-3">
+    <label for="{{ form.mobile.id_for_label }}" class="form-label">{{ form.mobile.label }}</label>
+    {{ form.mobile }}
+</div>
+
+<!-- Email -->
+<div class="mb-3">
+    <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
+    {{ form.email }}
+</div>
+
+<!-- Job City -->
+<div class="mb-3">
+    <label for="{{ form.job_city.id_for_label }}" class="form-label">{{ form.job_city.label }}</label>
+    {{ form.job_city }}
+</div>
+
+<!-- Profile Image -->
+<div class="mb-3">
+    <label for="{{ form.profile_image.id_for_label }}" class="form-label">{{ form.profile_image.label }}</label>
+    {{ form.profile_image }}
+    <div class="mt-3">
+        <img id="imagepreview" alt="Image Preview">
+    </div>
+</div>
+
+<!-- File -->
+<div class="mb-3">
+    <label for="{{ form.my_file.id_for_label }}" class="form-label">{{ form.my_file.label }}</label>
+    {{ form.my_file }}
+</div>
+
+<button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<script>
+function previewimage(event) {
+    const imagepreview = document.getElementById('imagepreview');
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagepreview.src = e.target.result;
+            imagepreview.style.display = 'block';
+        };
+        reader.readAsDataURL(file);
+    } else {
+        imagepreview.style.display = 'none';
+    }
+}
+document.querySelector("input[type='file']").addEventListener("change", previewimage);
+</script>
+{% endblock left-content %}
+
+
+{% block right-content %}
+<div class="right-content">
+    <h4 class="text-center mb-3"><u>List of Candidates</u></h4>
+    {% for candidate in candidates %}
+        <p>{{ candidate.id }}: <a href="{% url 'candidates_details' candidate.id %}">{{ candidate.name }}</a></p>
+    {% empty %}
+        <p class="text-center text-muted">No candidates found.</p>
+    {% endfor %}
+</div>
+{% endblock right-content %}
